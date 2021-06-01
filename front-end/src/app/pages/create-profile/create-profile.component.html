@@ -1,0 +1,129 @@
+<div fxLayout="column" class="content">
+    <button class="back_button" mat-icon-button>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div>
+      <span
+        class="breadcrumb"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <span class="light_font">ID 13301</span>
+        <mat-icon class="light_font">navigate_next</mat-icon>
+        <span class="dark_font">Create Profile</span>
+      </span>
+    </div>
+    <mat-horizontal-stepper linear>
+      <mat-step [stepControl]="profileInfoForm">
+        <form [formGroup]="profileInfoForm">
+          <ng-template matStepLabel>Profile Information</ng-template>
+          <div
+            class="form-control"
+            [class.form_error]="
+              profileInfoForm?.get('profileType')?.touched &&
+              profileInfoForm?.get('profileType')?.errors
+            "
+          >
+            <mat-label>Profile Type:</mat-label>
+            <select
+              placeholder="Select Profile Type"
+              formControlName="profileType"
+              required
+            >
+              <option value="scep">SCEP</option>
+              <option value="cmp">CMP</option>
+              <option value="unified">Unified Web Request</option>
+            </select>
+          </div>
+          <div
+            class="form-control"
+            *ngIf="profileInfoForm?.get('profileType')?.value"
+            [class.form_error]="
+              profileInfoForm?.get('profileName')?.touched &&
+              profileInfoForm?.get('profileName')?.errors
+            "
+          >
+            <mat-label>Profile Name: </mat-label>
+            <input
+              formControlName="profileName"
+              required
+              placeholder="Enter Profile Name"
+            />
+          </div>
+          <mat-card *ngIf="profileInfoForm?.get('profileType')?.value">
+            <mat-card-header>Email Addresses</mat-card-header>
+            <mat-card-content>
+              <div formGroupName="emailAddresses" class="form-group">
+                <div class="form-control">
+                  <mat-label>RA "From" Email Address:</mat-label>
+                  <input
+                    formControlName="raFromEmailAddress"
+                    required
+                    placeholder="Enter RA From Email Address"
+                  />
+                </div>
+                <div class="form-control">
+                  <mat-label>Support Email Address:</mat-label>
+                  <input
+                    formControlName="supportEmailAddress"
+                    required
+                    placeholder="Enter Support Email Address"
+                  />
+                </div>
+                <div class="form-control">
+                  <mat-label>Nick Name:</mat-label>
+                  <input
+                    formControlName="nickName"
+                    required
+                    placeholder="Enter Nick Name"
+                  />
+                </div>
+              </div>
+            </mat-card-content>
+            <hr class="divider" />
+            <mat-card-header>Websites</mat-card-header>
+            <mat-card-content>
+              <div formGroupName="websites">
+                <div class="form-control">
+                  <mat-label>Secure URL:</mat-label>
+                  <input
+                    formControlName="secureURL"
+                    required
+                    placeholder="Enter Secure URL"
+                  />
+                </div>
+                <div class="form-control">
+                  <span></span>
+                  <mat-checkbox class="checkbox" formControlName="gdpr"
+                    >GDPR</mat-checkbox
+                  >
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <div>
+            <button mat-flat-button color="primary" class="button" matStepperNext>
+              Next
+            </button>
+            <button
+              mat-flat-button
+              color="warn"
+              class="button"
+              matStepperPrevious
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="profileConfigForm">
+        <form [formGroup]="profileConfigForm">
+          <ng-template matStepLabel>Profile Configuration</ng-template>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Create / Assign RA Operator</ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  
