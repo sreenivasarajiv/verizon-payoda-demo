@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -15,6 +15,7 @@ import * as _ from 'lodash';
 export class ProfileConfigurationComponent implements OnInit {
   @Input() inputForm: any = null;
   @Input() policies: any = null;
+  @Output() saveData = new EventEmitter();
   preservedPolicies: any = [];
   currentPolicy: any;
 
@@ -39,6 +40,7 @@ export class ProfileConfigurationComponent implements OnInit {
     this.policies.splice(this.policies.indexOf(this.currentPolicy), 1);
 
     const newForm = this._fb.group({
+      name: [this.currentPolicy.name],
       generateOptions: this._fb.group({
         generateSmartToken: [
           this.currentPolicy.generateOptions.generateSmartToken,
@@ -73,5 +75,9 @@ export class ProfileConfigurationComponent implements OnInit {
     });
 
     (this.inputForm.get('policies') as FormArray).push(newForm);
+  }
+
+  save() {
+    this.saveData.emit();
   }
 }

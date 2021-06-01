@@ -21,7 +21,7 @@ export class CreateProfileComponent implements OnInit {
   ngOnInit(): void {
     this.profileInfoForm = this._fb.group({
       profileType: ['', Validators.required],
-      profileName: ['', Validators.required],
+      name: ['', Validators.required],
       emailAddresses: this._fb.group({
         raFromEmailAddress: ['', [Validators.required, Validators.email]],
         supportEmailAddress: ['', [Validators.required, Validators.email]],
@@ -47,5 +47,21 @@ export class CreateProfileComponent implements OnInit {
     this.createProfileService
       .getPolicies()
       .subscribe((data) => (this.policies = data));
+  }
+
+  saveData() {
+    const data = {
+      ...this.profileInfoForm.value,
+      ...this.profileConfigForm.value,
+      profileType: {
+        code: this.profileInfoForm.value.profileType,
+      },
+    };
+    delete data.policy;
+
+    this.createProfileService.saveProfile(data).subscribe(
+      (data) => console.log(data),
+      (err) => console.error(err)
+    );
   }
 }

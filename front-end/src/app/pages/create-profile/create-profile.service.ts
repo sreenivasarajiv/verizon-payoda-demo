@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -15,5 +15,16 @@ export class CreateProfileService {
 
   getPolicies() {
     return this._http.get(this.apiBase + 'policy');
+  }
+
+  saveProfile(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    return this._http.post(
+      this.apiBase + 'profile',
+      JSON.stringify(data),
+      httpOptions
+    );
   }
 }

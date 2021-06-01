@@ -13,7 +13,7 @@
       <span class="dark_font">Create Profile</span>
     </span>
   </div>
-  <mat-horizontal-stepper selectedIndex="1">
+  <mat-horizontal-stepper linear>
     <mat-step [stepControl]="profileInfoForm">
       <ng-template matStepLabel>Profile Information</ng-template>
       <app-profile-information
@@ -27,6 +27,7 @@
         <app-profile-configuration
           [inputForm]="profileConfigForm"
           [policies]="policies"
+          (saveData)="saveData()"
         ></app-profile-configuration>
       </form>
     </mat-step>

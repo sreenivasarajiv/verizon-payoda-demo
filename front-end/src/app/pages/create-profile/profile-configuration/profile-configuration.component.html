@@ -128,4 +128,12 @@
       </mat-card>
     </div>
   </div>
+  <div *ngIf="currentPolicy">
+    <button mat-flat-button color="primary" class="button" (click)="save()">
+      Save & Continue
+    </button>
+    <button mat-flat-button color="warn" class="button" matStepperPrevious>
+      Cancel
+    </button>
+  </div>
 </form>
