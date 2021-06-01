@@ -35,10 +35,17 @@ export class CreateProfileComponent implements OnInit {
 
     this.profileInfoForm.get('profileType')?.value;
 
-    this.profileConfigForm = this._fb.group({});
+    this.profileConfigForm = this._fb.group({
+      policy: ['', Validators.required],
+      policies: this._fb.array([])
+    });
 
     this.createProfileService
       .getProfileType()
       .subscribe((data) => (this.profileTypes = data));
+
+    this.createProfileService
+      .getPolicies()
+      .subscribe((data) => (this.policies = data));
   }
 }

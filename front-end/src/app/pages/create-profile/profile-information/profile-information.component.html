@@ -1,0 +1,91 @@
+<form [formGroup]="inputForm">
+  <div
+    class="form-control"
+    [class.form_error]="
+      inputForm?.get('profileType')?.touched &&
+      inputForm?.get('profileType')?.errors
+    "
+  >
+    <mat-label>Profile Type:</mat-label>
+    <select formControlName="profileType" required>
+      <option value="" disabled hidden>Select Profile Type</option>
+      <option *ngFor="let pt of profileTypes" [value]="pt.code">
+        {{ pt.name }}
+      </option>
+    </select>
+  </div>
+  <div
+    class="form-control"
+    *ngIf="inputForm?.get('profileType')?.value"
+    [class.form_error]="
+      inputForm?.get('profileName')?.touched &&
+      inputForm?.get('profileName')?.errors
+    "
+  >
+    <mat-label>Profile Name: </mat-label>
+    <input
+      formControlName="profileName"
+      required
+      placeholder="Enter Profile Name"
+    />
+  </div>
+  <mat-card *ngIf="inputForm?.get('profileType')?.value">
+    <mat-card-header>Email Addresses</mat-card-header>
+    <mat-card-content>
+      <div formGroupName="emailAddresses" class="form-group">
+        <div class="form-control">
+          <mat-label>RA "From" Email Address:</mat-label>
+          <input
+            formControlName="raFromEmailAddress"
+            required
+            placeholder="Enter RA From Email Address"
+          />
+        </div>
+        <div class="form-control">
+          <mat-label>Support Email Address:</mat-label>
+          <input
+            formControlName="supportEmailAddress"
+            required
+            placeholder="Enter Support Email Address"
+          />
+        </div>
+        <div class="form-control">
+          <mat-label>Nickname:</mat-label>
+          <input
+            formControlName="nickName"
+            required
+            placeholder="Enter Nick Name"
+          />
+        </div>
+      </div>
+    </mat-card-content>
+    <hr class="divider" />
+    <mat-card-header>Websites</mat-card-header>
+    <mat-card-content>
+      <div formGroupName="websites">
+        <div class="form-control">
+          <mat-label>Secure URL:</mat-label>
+          <input
+            formControlName="secureURL"
+            required
+            placeholder="Enter Secure URL"
+          />
+        </div>
+        <div class="form-control">
+          <span></span>
+          <mat-checkbox class="checkbox" formControlName="gdpr"
+            >GDPR</mat-checkbox
+          >
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div>
+    <button mat-flat-button color="primary" class="button" matStepperNext>
+      Next
+    </button>
+    <button mat-flat-button color="warn" class="button" matStepperPrevious>
+      Cancel
+    </button>
+  </div>
+</form>

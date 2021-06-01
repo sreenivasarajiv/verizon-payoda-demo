@@ -12,12 +12,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     MatToolbarModule,
     MatIconModule,
@@ -29,7 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatInputModule,
     MatCardModule,
-    MatCheckboxModule
-  ]
+    MatCheckboxModule,
+    MatRadioModule,
+  ],
 })
-export class MaterialModule { }
+export class MaterialModule {}

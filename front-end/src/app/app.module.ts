@@ -15,6 +15,8 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { MaterialModule } from './material.module';
 import { CreateProfileComponent } from './pages/create-profile/create-profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileInformationComponent } from './pages/create-profile/profile-information/profile-information.component';
+import { ProfileConfigurationComponent } from './pages/create-profile/profile-configuration/profile-configuration.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     FooterComponent,
     CreateProfileComponent,
+    ProfileInformationComponent,
+    ProfileConfigurationComponent,
   ],
   imports: [
     BrowserModule,

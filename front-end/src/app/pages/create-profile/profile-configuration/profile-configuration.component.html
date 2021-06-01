@@ -1,0 +1,63 @@
+<form [formGroup]="inputForm">
+  <h4 class="header">Assign one or more policy</h4>
+  <div class="form-control extend-width">
+    <mat-label>Select Policy:</mat-label>
+    <div>
+      <select formControlName="policy" required>
+        <option value="" hidden disabled>Select Policy</option>
+        <option *ngFor="let po of policies" [value]="po._id">
+          {{ po.name }}
+        </option>
+      </select>
+      <button mat-flat-button color="warn" class="button">Add</button>
+    </div>
+  </div>
+  <h4 class="header" *ngIf="currentPolicy">
+    Selected Policies & Configurations
+  </h4>
+  <div formArrayName="policies">
+    <div *ngFor="let po of inputForm.get('policies').controls; let i = index">
+      <mat-card *ngIf="currentPolicy">
+        <mat-card-header>{{ currentPolicy.name }}</mat-card-header>
+        <mat-card-content>
+          <div [formGroupName]="i">
+            <div formGroupName="generateOptions">
+              <mat-checkbox
+                class="checkbox"
+                formControlName="generateSmartToken"
+                >Generate smart card/token</mat-checkbox
+              >
+              <mat-checkbox
+                class="checkbox"
+                formControlName="generateSoftwareKey"
+                >Generation of software key</mat-checkbox
+              >
+              <mat-checkbox class="checkbox" formControlName="enableExternalCSR"
+                >Enable use of an external CSR</mat-checkbox
+              >
+              <mat-checkbox
+                class="checkbox"
+                formControlName="generateSoftwareKeyServerSide"
+                >Generation of Software key - Server Side</mat-checkbox
+              >
+            </div>
+            <mat-radio-group formControlName="policy">
+              <mat-radio-button value="certInvite"
+                >Policy enabled on request pages</mat-radio-button
+              >
+              <mat-radio-button value="forcedCertInvite"
+                >Policy enabled with cert invite option</mat-radio-button
+              >
+              <mat-radio-button value="disableRequestPage"
+                >Policy enabled with forced cert invite</mat-radio-button
+              >
+              <mat-radio-button value="enableRequestPage"
+                >Policy disabled on request pages</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</form>

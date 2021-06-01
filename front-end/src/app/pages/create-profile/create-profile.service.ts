@@ -12,4 +12,8 @@ export class CreateProfileService {
   getProfileType() {
     return this._http.get(this.apiBase + 'profile-type');
   }
+
+  getPolicies() {
+    return this._http.get(this.apiBase + 'policy');
+  }
 }
