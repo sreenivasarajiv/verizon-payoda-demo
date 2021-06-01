@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CreateProfileService } from './create-profile.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -9,8 +10,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CreateProfileComponent implements OnInit {
   profileInfoForm!: FormGroup;
   profileConfigForm!: FormGroup;
+  profileTypes: any = [];
+  policies: any = [];
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(
+    private _fb: FormBuilder,
+    private createProfileService: CreateProfileService
+  ) {}
 
   ngOnInit(): void {
     this.profileInfoForm = this._fb.group({
@@ -30,5 +36,9 @@ export class CreateProfileComponent implements OnInit {
     this.profileInfoForm.get('profileType')?.value;
 
     this.profileConfigForm = this._fb.group({});
+
+    this.createProfileService
+      .getProfileType()
+      .subscribe((data) => (this.profileTypes = data));
   }
 }

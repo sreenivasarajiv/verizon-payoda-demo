@@ -14,6 +14,7 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { MaterialModule } from './material.module';
 import { CreateProfileComponent } from './pages/create-profile/create-profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CreateProfileComponent } from './pages/create-profile/create-profile.co
     BrowserAnimationsModule,
     FlexLayoutModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
