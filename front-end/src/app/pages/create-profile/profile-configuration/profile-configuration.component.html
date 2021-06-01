@@ -3,13 +3,20 @@
   <div class="form-control extend-width">
     <mat-label>Select Policy:</mat-label>
     <div>
-      <select formControlName="policy" required>
+      <select #policy formControlName="policy" required>
         <option value="" hidden disabled>Select Policy</option>
         <option *ngFor="let po of policies" [value]="po._id">
           {{ po.name }}
         </option>
       </select>
-      <button mat-flat-button color="warn" class="button">Add</button>
+      <button
+        mat-flat-button
+        color="warn"
+        class="button"
+        (click)="addPolicy(policy.value)"
+      >
+        Add
+      </button>
     </div>
   </div>
   <h4 class="header" *ngIf="currentPolicy">
@@ -18,7 +25,7 @@
   <div formArrayName="policies">
     <div *ngFor="let po of inputForm.get('policies').controls; let i = index">
       <mat-card *ngIf="currentPolicy">
-        <mat-card-header>{{ currentPolicy.name }}</mat-card-header>
+        <mat-card-header>{{ getPolicyName(po) }}</mat-card-header>
         <mat-card-content>
           <div [formGroupName]="i">
             <div formGroupName="generateOptions">
@@ -55,6 +62,67 @@
                 >Policy disabled on request pages</mat-radio-button
               >
             </mat-radio-group>
+            <div formGroupName="raOptions">
+              <div formGroupName="requiredCertOrders">
+                <div class="form-control">
+                  <mat-label
+                    >RA Operators required for certificate orders:</mat-label
+                  >
+                  <div>
+                    <select formControlName="value" required>
+                      <option
+                        *ngFor="let count of [1, 2, 3, 4, 5]"
+                        [value]="count"
+                      >
+                        {{ count }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <mat-radio-group formControlName="bypass">
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div formGroupName="requiredCertStatus">
+                <div class="form-control">
+                  <mat-label
+                    >RA Operators required for certificate status
+                    request:</mat-label
+                  >
+                  <div>
+                    <select formControlName="value" required>
+                      <option
+                        *ngFor="let count of [1, 2, 3, 4, 5]"
+                        [value]="count"
+                      >
+                        {{ count }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <mat-radio-group formControlName="bypass">
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="form-control">
+                <mat-label
+                  >RA Operators required for key recovery requests if policy
+                  contain archival:</mat-label
+                >
+                <div>
+                  <select formControlName="requiredKeyRecovery" required>
+                    <option
+                      *ngFor="let count of [1, 2, 3, 4, 5]"
+                      [value]="count"
+                    >
+                      {{ count }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
         </mat-card-content>
       </mat-card>

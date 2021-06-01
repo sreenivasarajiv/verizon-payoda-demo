@@ -37,7 +37,7 @@ export class CreateProfileComponent implements OnInit {
 
     this.profileConfigForm = this._fb.group({
       policy: ['', Validators.required],
-      policies: this._fb.array([])
+      policies: this._fb.array([]),
     });
 
     this.createProfileService
