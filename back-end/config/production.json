@@ -1,0 +1,4 @@
+{
+	"CONNECTION_STRING": "mongodb://localhost/verizon-demo-prod",
+	"PORT": 3000
+}
