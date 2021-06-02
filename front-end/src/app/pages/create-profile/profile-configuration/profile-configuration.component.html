@@ -10,7 +10,7 @@
     <mat-label>Select Policy:</mat-label>
     <div>
       <select #policy formControlName="policy" required>
-        <option value="" hidden disabled>Select Policy</option>
+        <option value="" hidden disabled selected>Select Policy</option>
         <option *ngFor="let po of policies" [value]="po._id">
           {{ po.name }}
         </option>
@@ -95,8 +95,9 @@
                   >
                   <div>
                     <select formControlName="value" required>
+                      <option selected disabled hidden value="">NA</option>
                       <option
-                        *ngFor="let count of [1, 2, 3, 4, 5]"
+                        *ngFor="let count of [0, 1, 2, 3, 4, 5]"
                         [value]="count"
                       >
                         {{ count }}
@@ -109,8 +110,8 @@
                     >Bypass when Renewal Passphrase is available</mat-label
                   >
                   <mat-radio-group formControlName="bypass">
-                    <mat-radio-button value="true">Yes</mat-radio-button>
-                    <mat-radio-button value="false">No</mat-radio-button>
+                    <mat-radio-button [value]="true">Yes</mat-radio-button>
+                    <mat-radio-button [value]="false">No</mat-radio-button>
                   </mat-radio-group>
                 </div>
               </div>
@@ -123,7 +124,7 @@
                   <div>
                     <select formControlName="value" required>
                       <option
-                        *ngFor="let count of [1, 2, 3, 4, 5]"
+                        *ngFor="let count of [0, 1, 2, 3, 4, 5]"
                         [value]="count"
                       >
                         {{ count }}
@@ -136,8 +137,8 @@
                     >Bypass when Revocation Passphrase is available</mat-label
                   >
                   <mat-radio-group formControlName="bypass">
-                    <mat-radio-button value="true">Yes</mat-radio-button>
-                    <mat-radio-button value="false">No</mat-radio-button>
+                    <mat-radio-button [value]="true">Yes</mat-radio-button>
+                    <mat-radio-button [value]="false">No</mat-radio-button>
                   </mat-radio-group>
                 </div>
               </div>
@@ -149,7 +150,7 @@
                 <div>
                   <select formControlName="requiredKeyRecovery" required>
                     <option
-                      *ngFor="let count of [1, 2, 3, 4, 5]"
+                      *ngFor="let count of [0, 1, 2, 3, 4, 5]"
                       [value]="count"
                     >
                       {{ count }}
@@ -296,7 +297,7 @@
       <br />
     </div>
   </div>
-  <div *ngIf="currentPolicy">
+  <div *ngIf="inputForm?.get('policies').length">
     <button mat-flat-button color="primary" class="button" (click)="save()">
       Save & Continue
     </button>

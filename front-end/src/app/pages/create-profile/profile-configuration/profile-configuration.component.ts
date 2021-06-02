@@ -1,9 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 
 @Component({
@@ -21,9 +17,7 @@ export class ProfileConfigurationComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   getPolicyName(form: any) {
     const preservedPolicy = this.preservedPolicies.find(
@@ -33,7 +27,6 @@ export class ProfileConfigurationComponent implements OnInit {
   }
 
   addPolicy(policyId: string) {
-
     this.inputForm.get('policy')?.markAsTouched();
 
     if (!policyId) return;
@@ -48,29 +41,36 @@ export class ProfileConfigurationComponent implements OnInit {
       name: [this.currentPolicy.name],
       generateOptions: this._fb.group({
         generateSmartToken: [
-          this.currentPolicy.generateOptions.generateSmartToken,
+          this.currentPolicy.generateOptions.generateSmartToken || false,
         ],
         generateSoftwareKey: [
-          this.currentPolicy.generateOptions.generateSoftwareKey,
+          this.currentPolicy.generateOptions.generateSoftwareKey || false,
         ],
         enableExternalCSR: [
-          this.currentPolicy.generateOptions.enableExternalCSR,
+          this.currentPolicy.generateOptions.enableExternalCSR || false,
         ],
         generateSoftwareKeyServerSide: [
-          this.currentPolicy.generateOptions.generateSoftwareKeyServerSide,
+          this.currentPolicy.generateOptions.generateSoftwareKeyServerSide ||
+            false,
         ],
       }),
       policy: [this.currentPolicy.policy, Validators.required],
       raOptions: this._fb.group({
         requiredCertOrders: this._fb.group({
-          value: [this.currentPolicy.raOptions.requiredCertOrders.value],
-          bypass: [this.currentPolicy.raOptions.requiredCertOrders.bypass],
+          value: [this.currentPolicy.raOptions.requiredCertOrders.value || 0],
+          bypass: [
+            this.currentPolicy.raOptions.requiredCertOrders.bypass || false,
+          ],
         }),
         requiredCertStatus: this._fb.group({
-          value: [this.currentPolicy.raOptions.requiredCertStatus.value],
-          bypass: [this.currentPolicy.raOptions.requiredCertStatus.bypass],
+          value: [this.currentPolicy.raOptions.requiredCertStatus.value || 0],
+          bypass: [
+            this.currentPolicy.raOptions.requiredCertStatus.bypass || false,
+          ],
         }),
-        requiredKeyRecovery: [this.currentPolicy.raOptions.requiredKeyRecovery],
+        requiredKeyRecovery: [
+          this.currentPolicy.raOptions.requiredKeyRecovery || 0,
+        ],
       }),
     });
 
@@ -98,6 +98,7 @@ export class ProfileConfigurationComponent implements OnInit {
 
     (this.inputForm.get('policies') as FormArray).removeAt(formIndex);
 
-    if (this.policies.length === this.originalPolicies.length) this.currentPolicy = null;
+    if (this.policies.length === this.originalPolicies.length)
+      this.currentPolicy = null;
   }
 }

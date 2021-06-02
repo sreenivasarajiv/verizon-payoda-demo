@@ -67,14 +67,9 @@ export class CreateProfileComponent implements OnInit {
       },
     };
     delete data.policy;
-
     this.createProfileService.saveProfile(data).subscribe(
       (data) => {
-        this.profileInfoForm.reset();
-        (this.profileConfigForm.get('policies') as FormArray).clear();
-        this.profileConfigForm.reset();
-        this.policies = _.cloneDeep(this.originalPolicies);
-        this.myStepper.reset();
+        this.resetValues()
         SWAL.fire({
           title: 'Success',
           text: 'Profile saved successfully!',
@@ -98,5 +93,15 @@ export class CreateProfileComponent implements OnInit {
     } else {
       this.myStepper.next();
     }
+  }
+
+  resetValues() {
+    this.profileInfoForm.reset();
+    (this.profileConfigForm.get('policies') as FormArray).clear();
+    this.profileConfigForm.reset();
+    this.policies = _.cloneDeep(this.originalPolicies);
+    this.myStepper.reset();
+    this.profileInfoForm.get('profileType')?.setValue('');
+    this.profileConfigForm.get('policy')?.setValue('');
   }
 }

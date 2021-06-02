@@ -8,7 +8,7 @@
   >
     <mat-label>Profile Type:</mat-label>
     <select formControlName="profileType" required>
-      <option value="" disabled hidden>Select Profile Type</option>
+      <option value="" disabled hidden selected>Select Profile Type</option>
       <option *ngFor="let pt of profileTypes" [value]="pt.code">
         {{ pt.name }}
       </option>
