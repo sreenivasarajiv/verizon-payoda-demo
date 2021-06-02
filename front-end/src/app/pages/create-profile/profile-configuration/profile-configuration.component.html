@@ -1,6 +1,12 @@
 <form [formGroup]="inputForm">
   <h4 class="header">Assign one or more policy</h4>
-  <div class="form-control extend-width">
+  <div
+    class="form-control extend-width"
+    [class.form_error]="
+      inputForm?.get('policy')?.touched &&
+      inputForm?.get('policy')?.errors
+    "
+  >
     <mat-label>Select Policy:</mat-label>
     <div>
       <select #policy formControlName="policy" required>
@@ -25,12 +31,20 @@
   <div formArrayName="policies">
     <div *ngFor="let po of inputForm.get('policies').controls; let i = index">
       <mat-accordion>
-        <mat-expansion-panel [expanded]="getPolicyName(po) === currentPolicy.name">
+        <mat-expansion-panel
+          [expanded]="
+            currentPolicy?.name && getPolicyName(po) === currentPolicy.name
+          "
+        >
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{ getPolicyName(po) }}
             </mat-panel-title>
-            <button mat-icon-button class="action" (click)="deletePolicy(po.value.name, i)">
+            <button
+              mat-icon-button
+              class="action"
+              (click)="deletePolicy(po.value.name, i)"
+            >
               <mat-icon>delete</mat-icon>
             </button>
           </mat-expansion-panel-header>

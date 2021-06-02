@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
   FormArray,
   FormBuilder,
-  FormControl,
   Validators,
 } from '@angular/forms';
 import * as _ from 'lodash';
@@ -14,8 +12,9 @@ import * as _ from 'lodash';
   styleUrls: ['./profile-configuration.component.sass'],
 })
 export class ProfileConfigurationComponent implements OnInit {
-  @Input() inputForm: any = null;
+  @Input() inputForm!: any;
   @Input() policies: any = null;
+  @Input() originalPolicies: any = null;
   @Output() saveData = new EventEmitter();
   preservedPolicies: any = [];
   currentPolicy: any;
@@ -23,12 +22,7 @@ export class ProfileConfigurationComponent implements OnInit {
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      (this.inputForm.get('policy') as FormControl).setValue(
-        '60b5de757872851150e741ec'
-      );
-      this.addPolicy('60b5de757872851150e741ec');
-    }, 1000);
+    
   }
 
   getPolicyName(form: any) {
@@ -39,6 +33,9 @@ export class ProfileConfigurationComponent implements OnInit {
   }
 
   addPolicy(policyId: string) {
+
+    this.inputForm.get('policy')?.markAsTouched();
+
     if (!policyId) return;
 
     this.currentPolicy = this.policies.filter(
@@ -87,6 +84,7 @@ export class ProfileConfigurationComponent implements OnInit {
 
   save() {
     this.saveData.emit();
+    this.currentPolicy = null;
   }
 
   deletePolicy(policyName: string, formIndex: number) {
@@ -99,5 +97,7 @@ export class ProfileConfigurationComponent implements OnInit {
     this.policies.push(_.cloneDeep(policy.policy));
 
     (this.inputForm.get('policies') as FormArray).removeAt(formIndex);
+
+    if (this.policies.length === this.originalPolicies.length) this.currentPolicy = null;
   }
 }

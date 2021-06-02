@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateProfileService } from './create-profile.service';
+import * as _ from 'lodash';
+import SWAL from 'sweetalert2';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-create-profile',
@@ -12,6 +15,8 @@ export class CreateProfileComponent implements OnInit {
   profileConfigForm!: FormGroup;
   profileTypes: any = [];
   policies: any = [];
+  originalPolicies: any = [];
+  @ViewChild('stepper') private myStepper!: MatStepper;
 
   constructor(
     private _fb: FormBuilder,
@@ -23,13 +28,16 @@ export class CreateProfileComponent implements OnInit {
       profileType: ['', Validators.required],
       name: ['', Validators.required],
       emailAddresses: this._fb.group({
-        raFromEmailAddress: ['', [Validators.required, Validators.email]],
+        raFromEmailAddress: [
+          '',
+          Validators.compose([Validators.required, Validators.email]),
+        ],
         supportEmailAddress: ['', [Validators.required, Validators.email]],
         nickName: ['', Validators.required],
       }),
       websites: this._fb.group({
         secureURL: ['', Validators.required],
-        gdpr: [false, Validators.required],
+        gdpr: [false],
       }),
     });
 
@@ -44,12 +52,10 @@ export class CreateProfileComponent implements OnInit {
       .getProfileType()
       .subscribe((data) => (this.profileTypes = data));
 
-    this.createProfileService
-      .getPolicies()
-      .subscribe((data) => {
-        this.policies = data;
-
-      });
+    this.createProfileService.getPolicies().subscribe((data) => {
+      this.policies = data;
+      this.originalPolicies = _.cloneDeep(data);
+    });
   }
 
   saveData() {
@@ -63,8 +69,34 @@ export class CreateProfileComponent implements OnInit {
     delete data.policy;
 
     this.createProfileService.saveProfile(data).subscribe(
-      (data) => console.log(data),
-      (err) => console.error(err)
+      (data) => {
+        this.profileInfoForm.reset();
+        (this.profileConfigForm.get('policies') as FormArray).clear();
+        this.profileConfigForm.reset();
+        this.policies = _.cloneDeep(this.originalPolicies);
+        this.myStepper.reset();
+        SWAL.fire({
+          title: 'Success',
+          text: 'Profile saved successfully!',
+          icon: 'success',
+          heightAuto: false,
+        });
+      },
+      (err) =>
+        SWAL.fire({
+          title: 'Error',
+          text: 'Something went wrong!',
+          icon: 'error',
+          heightAuto: false,
+        })
     );
+  }
+
+  stepperAction() {
+    if (!this.profileInfoForm.valid) {
+      this.profileInfoForm.markAllAsTouched();
+    } else {
+      this.myStepper.next();
+    }
   }
 }
