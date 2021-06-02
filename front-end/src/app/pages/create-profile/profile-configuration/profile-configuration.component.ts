@@ -3,6 +3,7 @@ import {
   AbstractControl,
   FormArray,
   FormBuilder,
+  FormControl,
   Validators,
 } from '@angular/forms';
 import * as _ from 'lodash';
@@ -21,7 +22,12 @@ export class ProfileConfigurationComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      (this.inputForm.get('policy') as FormControl).setValue('60b5de757872851150e741ec')
+      this.addPolicy('60b5de757872851150e741ec')
+    }, 1000)    
+  }
 
   getPolicyName(form: any) {
     const preservedPolicy = this.preservedPolicies.find(

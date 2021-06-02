@@ -25,7 +25,19 @@
   <div formArrayName="policies">
     <div *ngFor="let po of inputForm.get('policies').controls; let i = index">
       <mat-card *ngIf="currentPolicy">
-        <mat-card-header>{{ getPolicyName(po) }}</mat-card-header>
+        <mat-card-header>
+          <div style="width: 100%; padding:0px" fxLayout="row" fxLayoutAlign="space-between center">
+            <span>{{ getPolicyName(po) }}</span>
+            <div class="actions">
+              <button mat-icon-button >
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card-header>
         <mat-card-content>
           <div [formGroupName]="i">
             <div formGroupName="generateOptions">
@@ -48,23 +60,27 @@
                 >Generation of Software key - Server Side</mat-checkbox
               >
             </div>
+            <br />
+            <br />
             <mat-radio-group formControlName="policy">
-              <mat-radio-button value="certInvite"
+              <mat-radio-button class="vertical" value="certInvite"
                 >Policy enabled on request pages</mat-radio-button
               >
-              <mat-radio-button value="forcedCertInvite"
+              <mat-radio-button class="vertical" value="forcedCertInvite"
                 >Policy enabled with cert invite option</mat-radio-button
               >
-              <mat-radio-button value="disableRequestPage"
+              <mat-radio-button class="vertical" value="disableRequestPage"
                 >Policy enabled with forced cert invite</mat-radio-button
               >
-              <mat-radio-button value="enableRequestPage"
+              <mat-radio-button class="vertical" value="enableRequestPage"
                 >Policy disabled on request pages</mat-radio-button
               >
             </mat-radio-group>
+            <br />
+            <br />
             <div formGroupName="raOptions">
               <div formGroupName="requiredCertOrders">
-                <div class="form-control">
+                <div class="form-control ra-options-container">
                   <mat-label
                     >RA Operators required for certificate orders:</mat-label
                   >
@@ -79,13 +95,18 @@
                     </select>
                   </div>
                 </div>
-                <mat-radio-group formControlName="bypass">
-                  <mat-radio-button value="true">Yes</mat-radio-button>
-                  <mat-radio-button value="false">No</mat-radio-button>
-                </mat-radio-group>
+                <div class="form-control">
+                  <mat-label
+                    >Bypass when Renewal Passphrase is available</mat-label
+                  >
+                  <mat-radio-group formControlName="bypass">
+                    <mat-radio-button value="true">Yes</mat-radio-button>
+                    <mat-radio-button value="false">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
               </div>
               <div formGroupName="requiredCertStatus">
-                <div class="form-control">
+                <div class="form-control ra-options-container">
                   <mat-label
                     >RA Operators required for certificate status
                     request:</mat-label
@@ -101,12 +122,17 @@
                     </select>
                   </div>
                 </div>
-                <mat-radio-group formControlName="bypass">
-                  <mat-radio-button value="true">Yes</mat-radio-button>
-                  <mat-radio-button value="false">No</mat-radio-button>
-                </mat-radio-group>
+                <div class="form-control">
+                  <mat-label
+                    >Bypass when Revocation Passphrase is available</mat-label
+                  >
+                  <mat-radio-group formControlName="bypass">
+                    <mat-radio-button value="true">Yes</mat-radio-button>
+                    <mat-radio-button value="false">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
               </div>
-              <div class="form-control">
+              <div class="form-control ra-options-container">
                 <mat-label
                   >RA Operators required for key recovery requests if policy
                   contain archival:</mat-label
@@ -126,6 +152,7 @@
           </div>
         </mat-card-content>
       </mat-card>
+      <br/>
     </div>
   </div>
   <div *ngIf="currentPolicy">
