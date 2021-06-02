@@ -1,4 +1,3 @@
 {
-	"CONNECTION_STRING": "mongodb://localhost/verizon-demo-prod",
-	"PORT": 3000
+	"CONNECTION_STRING": "mongodb://test:test123@advancednodejs-cluster-shard-00-00.e6vhj.mongodb.net:27017,advancednodejs-cluster-shard-00-01.e6vhj.mongodb.net:27017,advancednodejs-cluster-shard-00-02.e6vhj.mongodb.net:27017/verizon-payoda-demo?ssl=true&replicaSet=atlas-lhae20-shard-0&authSource=admin&retryWrites=true&w=majority"
 }

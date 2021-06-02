@@ -3,6 +3,8 @@ const config = require("config");
 
 const connString = config.get("CONNECTION_STRING");
 
+console.log(connString)
+
 const { ProfileType } = require("../models/profile-type");
 const { Policy } = require("../models/policy");
 

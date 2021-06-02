@@ -1,4 +1,3 @@
 {
-	"CONNECTION_STRING": "mongodb://localhost/verizon-demo-dev",
-	"PORT": 3000
+	"CONNECTION_STRING": "mongodb://localhost/verizon-demo-dev"
 }

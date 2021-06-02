@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "debug": "nodemon app.js",
-    "debug-inspect": "nodemon --inspect-brk app.js"
+    "start-dev": "cross-env NODE_ENV=development node app.js",
+    "start": "cross-env NODE_ENV=production node app.js",
+    "seed-database": "cross-env NODE_ENV=production node mongo-scripts/seed-database.js"
   },
   "keywords": [],
   "author": "Sreenivasa Rajiv <sreenivasarajiv@gmail.com>",
@@ -16,6 +16,7 @@
     "bson": "^4.4.0",
     "config": "^3.3.6",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "debug": "^4.3.1",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
