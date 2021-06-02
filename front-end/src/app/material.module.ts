@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [],
@@ -30,6 +31,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatCardModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatExpansionModule
   ],
 })
 export class MaterialModule {}

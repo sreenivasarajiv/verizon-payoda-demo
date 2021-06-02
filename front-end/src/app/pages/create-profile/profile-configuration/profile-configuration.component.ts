@@ -24,9 +24,11 @@ export class ProfileConfigurationComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      (this.inputForm.get('policy') as FormControl).setValue('60b5de757872851150e741ec')
-      this.addPolicy('60b5de757872851150e741ec')
-    }, 1000)    
+      (this.inputForm.get('policy') as FormControl).setValue(
+        '60b5de757872851150e741ec'
+      );
+      this.addPolicy('60b5de757872851150e741ec');
+    }, 1000);
   }
 
   getPolicyName(form: any) {
@@ -85,5 +87,17 @@ export class ProfileConfigurationComponent implements OnInit {
 
   save() {
     this.saveData.emit();
+  }
+
+  deletePolicy(policyName: string, formIndex: number) {
+    if (!policyName) return;
+
+    const policy = this.preservedPolicies.find(
+      (p: any) => p.policy.name === policyName
+    );
+
+    this.policies.push(_.cloneDeep(policy.policy));
+
+    (this.inputForm.get('policies') as FormArray).removeAt(formIndex);
   }
 }

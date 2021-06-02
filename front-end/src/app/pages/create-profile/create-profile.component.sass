@@ -1,5 +1,6 @@
 $primary-red: #cd040b
 $primary-black: #333333
+$primary-blue: #4d93db
 
 .content
     padding: 2% 0 0 3%
@@ -41,7 +42,11 @@ $primary-black: #333333
         margin-left: -16px !important
         margin-bottom: 30px !important
     .mat-checkbox-checked ::ng-deep.mat-checkbox-background
-        background-color: $primary-red !important
+        background-color: $primary-blue !important
+    .mat-radio-inner-circle
+        background-color: $primary-blue !important
+    .mat-radio-checked .mat-radio-outer-circle
+        border-color: rgba(0,0,0,.54) !important
 
 .button
     width: 150px

@@ -46,7 +46,10 @@ export class CreateProfileComponent implements OnInit {
 
     this.createProfileService
       .getPolicies()
-      .subscribe((data) => (this.policies = data));
+      .subscribe((data) => {
+        this.policies = data;
+
+      });
   }
 
   saveData() {
